@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>معروف – نموذج دعم المواهب الكروية للأطفال</title>
+  <meta name="description" content="معروف يتبنّى حلمك – نموذج دعم الأطفال الموهوبين في كرة القدم." />
+
+  <!-- خط كايرو -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <!-- صورة الهيرو (قابلة للتغيير لاحقاً من static/img/hero.jpg) -->
+  <header class="hero">
+    <img src="{{ url_for('static', filename='img/hero.jpg') }}" alt="معروف – بتبنّى حلمك" />
+  </header>
+
+  <!-- النص التعريفي -->
+  <section class="intro">
+    <div class="wrap">
+      <div class="intro-card">
+        <h1>معروف يتبنّى حلمك</h1>
+        <p class="intro-lead">لأنّ كل موهبة تستحق أن تُكتشف، وكل حلم يستحق الدعم</p>
+        <p>يسعى معروف إلى دعم الأطفال الموهوبين في كرة القدم وتوفير احتياجاتهم الأساسية، ليخطوا بثقة نحو مستقبلهم.</p>
+        <p>إذا كنت تعرف طفلًا يملك الشغف والموهبة، شاركنا بياناته عبر هذا النموذج.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- النموذج -->
+  <main class="form-area">
+    <div class="wrap">
+
+      <form id="talentForm" novalidate>
+
+        <!-- القسم 1: البيانات الأساسية -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-num">١</div>
+            <h2>البيانات الأساسية</h2>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label for="full_name">الاسم الرباعي <span class="req">*</span></label>
+              <input type="text" id="full_name" name="full_name" autocomplete="name" required />
+              <span class="err-msg">الرجاء إدخال الاسم الرباعي.</span>
+            </div>
+
+            <div class="field">
+              <label for="birth_date">تاريخ الميلاد <span class="req">*</span></label>
+              <input type="date" id="birth_date" name="birth_date" required />
+              <span class="err-msg">الرجاء إدخال تاريخ الميلاد.</span>
+            </div>
+
+            <div class="field">
+              <label for="guardian_phone">رقم هاتف ولي الأمر <span class="req">*</span></label>
+              <input type="tel" id="guardian_phone" name="guardian_phone" inputmode="tel" placeholder="07XXXXXXXX" required />
+              <span class="err-msg">الرجاء إدخال رقم هاتف صحيح.</span>
+            </div>
+
+            <div class="field">
+              <label for="address">مكان السكن <span class="req">*</span></label>
+              <input type="text" id="address" name="address" placeholder="المدينة / المنطقة" required />
+              <span class="err-msg">الرجاء إدخال مكان السكن.</span>
+            </div>
+
+            <div class="field">
+              <label for="email">البريد الإلكتروني <span class="hint">(اختياري)</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="example@email.com" />
+              <span class="err-msg">صيغة البريد الإلكتروني غير صحيحة.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- القسم 2: البيانات الكروية -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-num">٢</div>
+            <h2>البيانات الكروية</h2>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label>المركز</label>
+              <div class="chips" role="radiogroup" aria-label="المركز">
+                <label class="chip"><input type="radio" name="position" value="حارس مرمى" /><span>حارس مرمى</span></label>
+                <label class="chip"><input type="radio" name="position" value="مدافع" /><span>مدافع</span></label>
+                <label class="chip"><input type="radio" name="position" value="لاعب وسط" /><span>لاعب وسط</span></label>
+                <label class="chip"><input type="radio" name="position" value="مهاجم" /><span>مهاجم</span></label>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label>الحالة</label>
+              <div class="chips" role="radiogroup" aria-label="الحالة">
+                <label class="chip"><input type="radio" name="status" value="لاعب حالي" /><span>لاعب حالي</span></label>
+                <label class="chip"><input type="radio" name="status" value="منقطع عن التدريب" /><span>منقطع عن التدريب</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="club">النادي / الأكاديمية</label>
+              <input type="text" id="club" name="club" placeholder="اسم النادي أو الأكاديمية" />
+            </div>
+
+            <div class="field">
+              <label for="experience">سنوات الخبرة</label>
+              <input type="number" id="experience" name="experience" min="0" max="30" placeholder="0" />
+            </div>
+
+            <div class="field full">
+              <label>تقييم المستوى <span class="hint">(من ١ إلى ٥)</span></label>
+              <div style="display:flex; align-items:center;">
+                <div class="stars" role="radiogroup" aria-label="تقييم المستوى">
+                  <input type="radio" id="lvl5" name="level" value="5" /><label for="lvl5" title="5">★</label>
+                  <input type="radio" id="lvl4" name="level" value="4" /><label for="lvl4" title="4">★</label>
+                  <input type="radio" id="lvl3" name="level" value="3" /><label for="lvl3" title="3">★</label>
+                  <input type="radio" id="lvl2" name="level" value="2" /><label for="lvl2" title="2">★</label>
+                  <input type="radio" id="lvl1" name="level" value="1" /><label for="lvl1" title="1">★</label>
+                </div>
+                <span class="rating-val" id="ratingVal"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- القسم 3: البطولات والإنجازات -->
+        <div class="section">
+          <div class="section-head">
+            <div class="section-num">٣</div>
+            <h2>البطولات والإنجازات</h2>
+          </div>
+
+          <div class="grid">
+            <div class="field full">
+              <label>شارك في بطولات؟</label>
+              <div class="chips" role="radiogroup" aria-label="شارك في بطولات">
+                <label class="chip"><input type="radio" name="tournaments" value="نعم" /><span>نعم</span></label>
+                <label class="chip"><input type="radio" name="tournaments" value="لا" /><span>لا</span></label>
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="achievements">الإنجازات</label>
+              <textarea id="achievements" name="achievements" placeholder="اذكر أبرز البطولات والإنجازات التي شارك فيها الطفل..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn" id="submitBtn">إرسال الطلب</button>
+        </div>
+      </form>
+
+      <!-- رسالة النجاح -->
+      <div class="success-card" id="successCard">
+        <div class="mark">✓</div>
+        <h2>شكراً لك، تم استلام بياناتك بنجاح.</h2>
+        <p>سنتواصل معكم في حال توفّر فرصة مناسبة لدعم الموهبة.</p>
+        <button type="button" class="btn" id="newBtn">إرسال طلب آخر</button>
+      </div>
+
+      <p class="foot">© معروف — جميع الحقوق محفوظة · <a href="{{ url_for('admin') }}">لوحة الإدارة</a></p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

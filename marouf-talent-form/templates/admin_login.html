@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دخول لوحة الإدارة – معروف</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <h1>لوحة الإدارة</h1>
+      <p>معروف – إدارة طلبات المواهب</p>
+      <form method="POST">
+        <div class="field">
+          <label for="password">كلمة المرور</label>
+          <input type="password" id="password" name="password" autofocus required />
+        </div>
+        {% if error %}<p class="err-msg show" style="margin-bottom:14px;">{{ error }}</p>{% endif %}
+        <button type="submit" class="btn" style="width:100%;">دخول</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

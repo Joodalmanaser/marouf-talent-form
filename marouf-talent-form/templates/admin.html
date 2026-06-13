@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الطلبات – لوحة إدارة معروف</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="admin-top">
+      <div>
+        <h1>طلبات المواهب</h1>
+        <span class="count">إجمالي الطلبات: {{ total }}</span>
+      </div>
+      <div class="admin-actions">
+        <a class="btn btn-sm" href="{{ url_for('download') }}">⬇ تحميل Excel</a>
+        <a class="btn btn-sm btn-outline" href="{{ url_for('index') }}">النموذج</a>
+        <a class="btn btn-sm btn-outline" href="{{ url_for('admin_logout') }}">خروج</a>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      {% if rows %}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            {% for key, ar in fields %}<th>{{ ar }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in rows %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            {% for key, ar in fields %}
+              <td>{{ r[key] if r[key] else '—' }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty">لا توجد طلبات بعد.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

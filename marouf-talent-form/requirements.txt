@@ -1,0 +1,6 @@
+Flask==3.0.3
+gunicorn==22.0.0
+openpyxl==3.1.5
+# اختياري لمزامنة Google Sheets (فعّلها عند الحاجة):
+gspread==6.1.2
+google-auth==2.34.0
