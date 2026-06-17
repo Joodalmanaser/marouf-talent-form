@@ -6,7 +6,6 @@
   <title>معروف – نموذج دعم المواهب الكروية للأطفال</title>
   <meta name="description" content="معروف بتبنى حلمك – نموذج دعم الأطفال الموهوبين في كرة القدم." />
 
-  <!-- خط كايرو -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -15,12 +14,10 @@
 </head>
 <body>
 
-  <!-- صورة الهيرو (قابلة للتغيير لاحقاً من static/img/hero.jpg) -->
   <header class="hero">
     <img src="{{ url_for('static', filename='img/hero.jpg') }}" alt="معروف – بتبنّى حلمك" />
   </header>
 
-  <!-- النص التعريفي -->
   <section class="intro">
     <div class="wrap">
       <div class="intro-card">
@@ -32,13 +29,11 @@
     </div>
   </section>
 
-  <!-- النموذج -->
   <main class="form-area">
     <div class="wrap">
 
-      <form id="talentForm" novalidate>
+      <form id="talentForm" action="https://formspree.io/f/xwvjjknj" method="POST" novalidate>
 
-        <!-- القسم 1: البيانات الأساسية -->
         <div class="section">
           <div class="section-head">
             <div class="section-num">١</div>
@@ -48,37 +43,36 @@
           <div class="grid">
             <div class="field full">
               <label for="full_name">الاسم الرباعي <span class="req">*</span></label>
-              <input type="text" id="full_name" name="full_name" autocomplete="name" required />
+              <input type="text" id="full_name" name="الاسم الرباعي" autocomplete="name" required />
               <span class="err-msg">الرجاء إدخال الاسم الرباعي.</span>
             </div>
 
             <div class="field">
               <label for="birth_date">تاريخ الميلاد <span class="req">*</span></label>
-              <input type="date" id="birth_date" name="birth_date" required />
+              <input type="date" id="birth_date" name="تاريخ الميلاد" required />
               <span class="err-msg">الرجاء إدخال تاريخ الميلاد.</span>
             </div>
 
             <div class="field">
               <label for="guardian_phone">رقم هاتف ولي الأمر <span class="req">*</span></label>
-              <input type="tel" id="guardian_phone" name="guardian_phone" inputmode="tel" placeholder="07XXXXXXXX" required />
+              <input type="tel" id="guardian_phone" name="رقم هاتف ولي الأمر" inputmode="tel" placeholder="07XXXXXXXX" required />
               <span class="err-msg">الرجاء إدخال رقم هاتف صحيح.</span>
             </div>
 
             <div class="field">
               <label for="address">مكان السكن <span class="req">*</span></label>
-              <input type="text" id="address" name="address" placeholder="المدينة / المنطقة" required />
+              <input type="text" id="address" name="مكان السكن" placeholder="المدينة / المنطقة" required />
               <span class="err-msg">الرجاء إدخال مكان السكن.</span>
             </div>
 
             <div class="field">
               <label for="email">البريد الإلكتروني <span class="hint">(اختياري)</span></label>
-              <input type="email" id="email" name="email" autocomplete="email" placeholder="example@email.com" />
+              <input type="email" id="email" name="البريد الإلكتروني" autocomplete="email" placeholder="example@email.com" />
               <span class="err-msg">صيغة البريد الإلكتروني غير صحيحة.</span>
             </div>
           </div>
         </div>
 
-        <!-- القسم 2: البيانات الكروية -->
         <div class="section">
           <div class="section-head">
             <div class="section-num">٢</div>
@@ -89,40 +83,40 @@
             <div class="field full">
               <label>المركز</label>
               <div class="chips" role="radiogroup" aria-label="المركز">
-                <label class="chip"><input type="radio" name="position" value="حارس مرمى" /><span>حارس مرمى</span></label>
-                <label class="chip"><input type="radio" name="position" value="مدافع" /><span>مدافع</span></label>
-                <label class="chip"><input type="radio" name="position" value="لاعب وسط" /><span>لاعب وسط</span></label>
-                <label class="chip"><input type="radio" name="position" value="مهاجم" /><span>مهاجم</span></label>
+                <label class="chip"><input type="radio" name="المركز" value="حارس مرمى" /><span>حارس مرمى</span></label>
+                <label class="chip"><input type="radio" name="المركز" value="مدافع" /><span>مدافع</span></label>
+                <label class="chip"><input type="radio" name="المركز" value="لاعب وسط" /><span>لاعب وسط</span></label>
+                <label class="chip"><input type="radio" name="المركز" value="مهاجم" /><span>مهاجم</span></label>
               </div>
             </div>
 
             <div class="field full">
               <label>الحالة</label>
               <div class="chips" role="radiogroup" aria-label="الحالة">
-                <label class="chip"><input type="radio" name="status" value="لاعب حالي" /><span>لاعب حالي</span></label>
-                <label class="chip"><input type="radio" name="status" value="منقطع عن التدريب" /><span>منقطع عن التدريب</span></label>
+                <label class="chip"><input type="radio" name="الحالة" value="لاعب حالي" /><span>لاعب حالي</span></label>
+                <label class="chip"><input type="radio" name="الحالة" value="منقطع عن التدريب" /><span>منقطع عن التدريب</span></label>
               </div>
             </div>
 
             <div class="field">
               <label for="club">النادي / الأكاديمية</label>
-              <input type="text" id="club" name="club" placeholder="اسم النادي أو الأكاديمية" />
+              <input type="text" id="club" name="النادي / الأكاديمية" placeholder="اسم النادي أو الأكاديمية" />
             </div>
 
             <div class="field">
               <label for="experience">سنوات الخبرة</label>
-              <input type="number" id="experience" name="experience" min="0" max="30" placeholder="0" />
+              <input type="number" id="experience" name="سنوات الخبرة" min="0" max="30" placeholder="0" />
             </div>
 
             <div class="field full">
               <label>تقييم المستوى <span class="hint">(من ١ إلى ٥)</span></label>
               <div style="display:flex; align-items:center;">
                 <div class="stars" role="radiogroup" aria-label="تقييم المستوى">
-                  <input type="radio" id="lvl5" name="level" value="5" /><label for="lvl5" title="5">★</label>
-                  <input type="radio" id="lvl4" name="level" value="4" /><label for="lvl4" title="4">★</label>
-                  <input type="radio" id="lvl3" name="level" value="3" /><label for="lvl3" title="3">★</label>
-                  <input type="radio" id="lvl2" name="level" value="2" /><label for="lvl2" title="2">★</label>
-                  <input type="radio" id="lvl1" name="level" value="1" /><label for="lvl1" title="1">★</label>
+                  <input type="radio" id="lvl5" name="تقييم المستوى" value="5" /><label for="lvl5" title="5">★</label>
+                  <input type="radio" id="lvl4" name="تقييم المستوى" value="4" /><label for="lvl4" title="4">★</label>
+                  <input type="radio" id="lvl3" name="تقييم المستوى" value="3" /><label for="lvl3" title="3">★</label>
+                  <input type="radio" id="lvl2" name="تقييم المستوى" value="2" /><label for="lvl2" title="2">★</label>
+                  <input type="radio" id="lvl1" name="تقييم المستوى" value="1" /><label for="lvl1" title="1">★</label>
                 </div>
                 <span class="rating-val" id="ratingVal"></span>
               </div>
@@ -130,7 +124,6 @@
           </div>
         </div>
 
-        <!-- القسم 3: البطولات والإنجازات -->
         <div class="section">
           <div class="section-head">
             <div class="section-num">٣</div>
@@ -141,14 +134,14 @@
             <div class="field full">
               <label>شارك في بطولات؟</label>
               <div class="chips" role="radiogroup" aria-label="شارك في بطولات">
-                <label class="chip"><input type="radio" name="tournaments" value="نعم" /><span>نعم</span></label>
-                <label class="chip"><input type="radio" name="tournaments" value="لا" /><span>لا</span></label>
+                <label class="chip"><input type="radio" name="شارك في بطولات" value="نعم" /><span>نعم</span></label>
+                <label class="chip"><input type="radio" name="شارك في بطولات" value="لا" /><span>لا</span></label>
               </div>
             </div>
 
             <div class="field full">
               <label for="achievements">الإنجازات</label>
-              <textarea id="achievements" name="achievements" placeholder="اذكر أبرز البطولات والإنجازات التي شارك فيها الطفل..."></textarea>
+              <textarea id="achievements" name="الإنجازات" placeholder="اذكر أبرز البطولات والإنجازات التي شارك فيها الطفل..."></textarea>
             </div>
           </div>
         </div>
@@ -158,7 +151,6 @@
         </div>
       </form>
 
-      <!-- رسالة النجاح -->
       <div class="success-card" id="successCard">
         <div class="mark">✓</div>
         <h2>شكراً لك، تم استلام بياناتك بنجاح.</h2>
@@ -172,6 +164,105 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    document.getElementById('talentForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // التحقق البسيط من الحقول المطلوبة داخل الواجهة
+      const requiredFields = form.querySelectorAll('[required]');
+      let isValid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          isValid = false;
+          field.classList.add('invalid');
+        } else {
+          field.classList.remove('invalid');
+        }
+      });
+      
+      if (!isValid) {
+        showToast("الرجاء تعبئة الحقول المطلوبة بالكامل.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "جاري الإرسال...";
+
+      // تجهيز البيانات بصيغة تتوافق مع نظام لوحة التحكم المحلي ونظام Formspree
+      const formData = new FormData(form);
+      
+      // إرسال البيانات بالتوازي لـ Formspree وللسيرفر المحلي لضمان عدم ضياعها
+      try {
+        const formspreePromise = fetch(form.action, {
+          method: form.method,
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        // تحويل البيانات لـ JSON لإرسالها للباك إند المحلي الخاص بـ Render
+        const localData = {
+          full_name: document.getElementById('full_name').value,
+          birth_date: document.getElementById('birth_date').value,
+          guardian_phone: document.getElementById('guardian_phone').value,
+          address: document.getElementById('address').value,
+          email: document.getElementById('email').value,
+          position: form.querySelector('input[name="المركز"]:checked')?.value || '',
+          status: form.querySelector('input[name="الحالة"]:checked')?.value || '',
+          club: document.getElementById('club').value,
+          experience: document.getElementById('experience').value,
+          level: form.querySelector('input[name="تقييم المستوى"]:checked')?.value || '',
+          tournaments: form.querySelector('input[name="شارك في بطولات"]:checked')?.value || '',
+          achievements: document.getElementById('achievements').value
+        };
+
+        const localPromise = fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(localData)
+        });
+
+        // ننتظر استجابة Formspree الأساسية
+        const response = await formspreePromise;
+        await localPromise; // محاولة الحفظ في السيرفر بشكل صامت في الخلفية
+
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('successCard').style.display = 'block';
+          form.reset();
+        } else {
+          showToast("حدث خطأ أثناء الإرسال الخارجي، يرجى المحاولة مرة أخرى.");
+        }
+      } catch (error) {
+        showToast("فشل الاتصال بالشبكة. يرجى التحقق من الإنترنت.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "إرسال الطلب";
+      }
+    });
+
+    document.getElementById('newBtn').addEventListener('click', function() {
+      document.getElementById('talentForm').style.display = 'block';
+      document.getElementById('successCard').style.display = 'none';
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // إدارة قيم النجوم وعرض التقييم رقمياً بشكل تفاعلي
+    const ratingVal = document.getElementById('ratingVal');
+    document.querySelectorAll('.stars input').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        ratingVal.innerText = e.target.value + " / 5";
+      });
+    });
+  </script>
 </body>
 </html>
