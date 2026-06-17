@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 معروف – نموذج دعم المواهب الكروية للأطفال
-Flask backend: يستقبل الطلبات، يخزّنها في قاعدة بيانات SQLite،
-ويوفّر لوحة إدارة بسيطة مع تصدير Excel، ودعم اختياري لـ Google Sheets.
+معدّل لإرسال البيانات تلقائياً وبأمان إلى Formspree لحمايتها من الضياع مجاناً.
 """
 
 import os
 import io
 import re
 import sqlite3
+import requests  # المكتبة المسؤولة عن إرسال البيانات للخارج فوراً
 from datetime import datetime
 from functools import wraps
 
@@ -28,11 +28,13 @@ DB_PATH = os.path.join(DATA_DIR, "submissions.db")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 app = Flask(__name__)
-# مفتاح الجلسة – غيّره في الإنتاج عبر متغيّر البيئة SECRET_KEY
 app.secret_key = os.environ.get("SECRET_KEY", "marouf-dev-secret-change-me")
 
 # كلمة مرور لوحة الإدارة – غيّرها عبر متغيّر البيئة ADMIN_PASSWORD
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "marouf2025")
+
+# رابط Formspree الخاص بكِ لحفظ الداتا بشكل دائم ومضمون
+FORMSPREE_URL = "https://formspree.io/f/xwvjjknj"
 
 # الأعمدة بالترتيب (المفتاح في القاعدة -> العنوان العربي للعرض/التصدير)
 FIELDS = [
@@ -92,36 +94,16 @@ def init_db():
 init_db()
 
 
-# ---------------------------------------------------------------------------
-# Google Sheets (اختياري) – يعمل تلقائياً إذا توفّرت بيانات الاعتماد
-# ---------------------------------------------------------------------------
-def append_to_google_sheet(row_dict):
-    """
-    يضيف سطراً إلى Google Sheets إذا كان متغيّر البيئة
-    GOOGLE_SHEET_ID و ملف الاعتماد متوفّرين. وإلا يتجاهل بصمت.
-    التفاصيل في README.
-    """
-    sheet_id = os.environ.get("GOOGLE_SHEET_ID")
-    creds_file = os.environ.get("GOOGLE_CREDS_FILE", os.path.join(BASE_DIR, "credentials.json"))
-    if not sheet_id or not os.path.exists(creds_file):
-        return  # غير مفعّل
-
+def send_to_formspree(row_dict):
+    """ يرسل البيانات إلى Formspree لتصل إلى إيميلك وتُحفظ في حسابك الخارجي """
+    if not FORMSPREE_URL:
+        return
     try:
-        import gspread
-        from google.oauth2.service_account import Credentials
-
-        scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-        creds = Credentials.from_service_account_file(creds_file, scopes=scopes)
-        client = gspread.authorize(creds)
-        sheet = client.open_by_key(sheet_id).sheet1
-
-        # كتابة رؤوس الأعمدة مرة واحدة إذا كانت الورقة فارغة
-        if not sheet.get_all_values():
-            sheet.append_row([ar for _, ar in FIELDS])
-
-        sheet.append_row([row_dict.get(key, "") for key, _ in FIELDS])
-    except Exception as e:  # لا نوقف الحفظ المحلي بسبب خطأ في الشيت
-        app.logger.warning("Google Sheets sync failed: %s", e)
+        # تحويل المفاتيح إلى العناوين العربية لتصلك في الإيميل والجدول بشكل مفهوم ومترجم
+        readable_data = {next(ar for k, ar in FIELDS if k == key): val for key, val in row_dict.items()}
+        requests.post(FORMSPREE_URL, json=readable_data, timeout=10)
+    except Exception as e:
+        app.logger.warning("Formspree sync failed: %s", e)
 
 
 # ---------------------------------------------------------------------------
@@ -171,6 +153,7 @@ def submit():
 
     record["created_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    # 1. الحفظ المحلي المؤقت (بلوحة التحكم الحالية)
     conn = get_db()
     conn.execute(
         """
@@ -190,8 +173,8 @@ def submit():
     conn.commit()
     conn.close()
 
-    # مزامنة اختيارية مع Google Sheets
-    append_to_google_sheet(record)
+    # 2. إرسال النسخة الاحتياطية الدائمة فوراً لـ Formspree لحماية البيانات من الحذف
+    send_to_formspree(record)
 
     return jsonify({"ok": True, "message": "شكراً لك، تم استلام بياناتك بنجاح."})
 
